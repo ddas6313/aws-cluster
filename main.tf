@@ -5,7 +5,7 @@ terraform {
       source  = "hashicorp/aws"
       version = ">= 3.20.0"
     }
-  } 
+  }
 
   backend "remote" {
     organization = "sreyo23"
@@ -27,7 +27,7 @@ variable "cluster_name" {
 }
 
 provider "aws" {
-  region  = var.region
+  region = var.region
 
 }
 
@@ -89,17 +89,17 @@ module "vpc" {
 
   public_subnet_tags = {
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
-    "kubernetes.io/role/elb"                      = "1"
+    "kubernetes.io/role/elb"                    = "1"
   }
 
   private_subnet_tags = {
     "kubernetes.io/cluster/${var.cluster_name}" = "shared"
-    "kubernetes.io/role/internal-elb"             = "1"
+    "kubernetes.io/role/internal-elb"           = "1"
   }
 }
 
 module "eks" {
-  source       = "terraform-aws-modules/eks/aws"
+  source          = "terraform-aws-modules/eks/aws"
   cluster_name    = var.cluster_name
   cluster_version = "1.20"
   subnets         = module.vpc.private_subnets
